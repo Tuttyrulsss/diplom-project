@@ -2,7 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import path from "path";
-import { v2 as cloudinary } from "cloudinary"; // ← ДОБАВЬТЕ ЭТУ СТРОКУ!
+import { fileURLToPath } from "url";
+import { v2 as cloudinary } from "cloudinary";
 
 import authRoutes from "./routes/auth.route.js";
 import productRoutes from "./routes/product.route.js";
@@ -24,12 +25,15 @@ console.log("ENV loaded:", {
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const __dirname = path.resolve();
+
+// Правильно получаем __dirname в ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
 
-// Настройка Cloudinary ПЕРЕД роутами
+// Настройка Cloudinary
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
 	api_key: process.env.CLOUDINARY_API_KEY,
@@ -44,16 +48,16 @@ app.use("/api/coupons", couponRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/analytics", analyticsRoutes);
 
-// Для production
+// Для production - serve фронтенд
 if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.join(__dirname, "/frontend/dist")));
+	app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+		res.sendFile(path.resolve(__dirname, "../frontend/dist/index.html"));
 	});
 }
 
-// Сначала подключаем MongoDB, потом запускаем сервер
+// Подключаем MongoDB и запускаем сервер
 connectDB().then(() => {
 	app.listen(PORT, () => {
 		console.log(`Server is running on http://localhost:${PORT}`);
