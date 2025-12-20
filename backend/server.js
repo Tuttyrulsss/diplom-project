@@ -16,14 +16,11 @@ import { connectDB } from "./lib/db.js";
 // Читаем .env
 dotenv.config();
 
-console.log("=== Проверка переменных окружения ===");
-console.log("ACCESS_TOKEN_SECRET:", process.env.ACCESS_TOKEN_SECRET);
-console.log("MONGO_URI:", process.env.MONGO_URI);
-console.log("PORT:", process.env.PORT);
-console.log("CLOUDINARY_CLOUD_NAME:", process.env.CLOUDINARY_CLOUD_NAME);
-console.log("CLOUDINARY_API_KEY:", process.env.CLOUDINARY_API_KEY);
-console.log("CLOUDINARY_API_SECRET:", process.env.CLOUDINARY_API_SECRET);
-console.log("=====================================");
+console.log("ENV loaded:", {
+	hasMongo: !!process.env.MONGO_URI,
+	hasJwt: !!process.env.ACCESS_TOKEN_SECRET,
+	hasCloudinary: !!process.env.CLOUDINARY_CLOUD_NAME
+});
 
 const app = express();
 const PORT = process.env.PORT || 5000;
