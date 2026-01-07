@@ -6,7 +6,7 @@ export const protectRoute = async (req, res, next) => {
 		const accessToken = req.cookies.accessToken;
 
 		if (!accessToken) {
-			return res.status(401).json({ message: "Unauthorized - No access token provided" });
+			return res.status(401).json({ message: "Не авторизован - Токен доступа не предоставлен" });
 		}
 
 		try {
@@ -14,7 +14,7 @@ export const protectRoute = async (req, res, next) => {
 			const user = await User.findById(decoded.userId).select("-password");
 
 			if (!user) {
-				return res.status(401).json({ message: "User not found" });
+				return res.status(401).json({ message: "Пользователь не найден" });
 			}
 
 			req.user = user;
@@ -22,13 +22,13 @@ export const protectRoute = async (req, res, next) => {
 			next();
 		} catch (error) {
 			if (error.name === "TokenExpiredError") {
-				return res.status(401).json({ message: "Unauthorized - Access token expired" });
+				return res.status(401).json({ message: "Не авторизован - Срок действия токена истек" });
 			}
 			throw error;
 		}
 	} catch (error) {
 		console.log("Error in protectRoute middleware", error.message);
-		return res.status(401).json({ message: "Unauthorized - Invalid access token" });
+		return res.status(401).json({ message: "Не авторизован - Недействительный токен доступа" });
 	}
 };
 
@@ -36,6 +36,6 @@ export const adminRoute = (req, res, next) => {
 	if (req.user && req.user.role === "admin") {
 		next();
 	} else {
-		return res.status(403).json({ message: "Access denied - Admin only" });
+		return res.status(403).json({ message: "Доступ запрещен - Только для администраторов" });
 	}
 };

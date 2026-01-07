@@ -8,7 +8,7 @@ const ProductCard = ({ product }) => {
 	const { addToCart } = useCartStore();
 	const handleAddToCart = () => {
 		if (!user) {
-			toast.error("Please login to add products to cart", { id: "login" });
+			toast.error("Пожалуйста, войдите, чтобы добавить товары в корзину", { id: "login" });
 			return;
 		} else {
 			// add to cart
@@ -36,7 +36,7 @@ const ProductCard = ({ product }) => {
 					onClick={handleAddToCart}
 				>
 					<ShoppingCart size={22} className='mr-2' />
-					Add to cart
+					Добавить в корзину
 				</button>
 			</div>
 		</div>

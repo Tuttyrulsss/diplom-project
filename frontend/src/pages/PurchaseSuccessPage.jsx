@@ -29,13 +29,13 @@ const PurchaseSuccessPage = () => {
 			handleCheckoutSuccess(sessionId);
 		} else {
 			setIsProcessing(false);
-			setError("No session ID found in the URL");
+			setError("Идентификатор сеанса не найден в URL");
 		}
 	}, [clearCart]);
 
-	if (isProcessing) return "Processing...";
+	if (isProcessing) return "Обработка...";
 
-	if (error) return `Error: ${error}`;
+	if (error) return `Ошибка: ${error}`;
 
 	return (
 		<div className='h-screen flex items-center justify-center px-4'>
@@ -54,23 +54,23 @@ const PurchaseSuccessPage = () => {
 						<CheckCircle className='text-emerald-400 w-16 h-16 mb-4' />
 					</div>
 					<h1 className='text-2xl sm:text-3xl font-bold text-center text-emerald-400 mb-2'>
-						Purchase Successful!
+						Покупка успешна!
 					</h1>
 
 					<p className='text-gray-300 text-center mb-2'>
-						Thank you for your order. {"We're"} processing it now.
+						Спасибо за ваш заказ. Мы обрабатываем его прямо сейчас.
 					</p>
 					<p className='text-emerald-400 text-center text-sm mb-6'>
-						Check your email for order details and updates.
+						Проверьте свою электронную почту для получения деталей заказа и обновлений.
 					</p>
 					<div className='bg-gray-700 rounded-lg p-4 mb-6'>
 						<div className='flex items-center justify-between mb-2'>
-							<span className='text-sm text-gray-400'>Order number</span>
+							<span className='text-sm text-gray-400'>Номер заказа</span>
 							<span className='text-sm font-semibold text-emerald-400'>#12345</span>
 						</div>
 						<div className='flex items-center justify-between'>
-							<span className='text-sm text-gray-400'>Estimated delivery</span>
-							<span className='text-sm font-semibold text-emerald-400'>3-5 business days</span>
+							<span className='text-sm text-gray-400'>Приблизительная доставка</span>
+							<span className='text-sm font-semibold text-emerald-400'>3-5 рабочих дней</span>
 						</div>
 					</div>
 
@@ -80,14 +80,14 @@ const PurchaseSuccessPage = () => {
              rounded-lg transition duration-300 flex items-center justify-center'
 						>
 							<HandHeart className='mr-2' size={18} />
-							Thanks for trusting us!
+							Спасибо за доверие!
 						</button>
 						<Link
 							to={"/"}
 							className='w-full bg-gray-700 hover:bg-gray-600 text-emerald-400 font-bold py-2 px-4 
             rounded-lg transition duration-300 flex items-center justify-center'
 						>
-							Continue Shopping
+							Продолжить покупки
 							<ArrowRight className='ml-2' size={18} />
 						</Link>
 					</div>

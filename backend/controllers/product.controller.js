@@ -10,7 +10,7 @@ export const getAllProducts = async (req, res) => {
 		res.json({ products });
 	} catch (error) {
 		console.log("Error in getAllProducts controller", error.message);
-		res.status(500).json({ message: "Server error", error: error.message });
+		res.status(500).json({ message: "Ошибка сервера", error: error.message });
 	}
 };
 
@@ -28,7 +28,7 @@ export const getFeaturedProducts = async (req, res) => {
 		featuredProducts = await Product.find({ isFeatured: true }).lean();
 
 		if (!featuredProducts) {
-			return res.status(404).json({ message: "No featured products found" });
+			return res.status(404).json({ message: "Рекомендуемые товары не найдены" });
 		}
 
 		// store in cache for future quick access
@@ -37,7 +37,7 @@ export const getFeaturedProducts = async (req, res) => {
 		res.json(featuredProducts);
 	} catch (error) {
 		console.log("Error in getFeaturedProducts controller", error.message);
-		res.status(500).json({ message: "Server error", error: error.message });
+		res.status(500).json({ message: "Ошибка сервера", error: error.message });
 	}
 };
 
@@ -62,7 +62,7 @@ export const createProduct = async (req, res) => {
 		res.status(201).json(product);
 	} catch (error) {
 		console.log("Error in createProduct controller", error.message);
-		res.status(500).json({ message: "Server error", error: error.message });
+		res.status(500).json({ message: "Ошибка сервера", error: error.message });
 	}
 };
 
@@ -71,7 +71,7 @@ export const deleteProduct = async (req, res) => {
 		const product = await Product.findById(req.params.id);
 
 		if (!product) {
-			return res.status(404).json({ message: "Product not found" });
+			return res.status(404).json({ message: "Товар не найден" });
 		}
 
 		if (product.image) {
@@ -86,10 +86,10 @@ export const deleteProduct = async (req, res) => {
 
 		await Product.findByIdAndDelete(req.params.id);
 
-		res.json({ message: "Product deleted successfully" });
+		res.json({ message: "Товар успешно удален" });
 	} catch (error) {
 		console.log("Error in deleteProduct controller", error.message);
-		res.status(500).json({ message: "Server error", error: error.message });
+		res.status(500).json({ message: "Ошибка сервера", error: error.message });
 	}
 };
 
@@ -113,7 +113,7 @@ export const getRecommendedProducts = async (req, res) => {
 		res.json(products);
 	} catch (error) {
 		console.log("Error in getRecommendedProducts controller", error.message);
-		res.status(500).json({ message: "Server error", error: error.message });
+		res.status(500).json({ message: "Ошибка сервера", error: error.message });
 	}
 };
 
@@ -124,7 +124,7 @@ export const getProductsByCategory = async (req, res) => {
 		res.json({ products });
 	} catch (error) {
 		console.log("Error in getProductsByCategory controller", error.message);
-		res.status(500).json({ message: "Server error", error: error.message });
+		res.status(500).json({ message: "Ошибка сервера", error: error.message });
 	}
 };
 
@@ -137,11 +137,11 @@ export const toggleFeaturedProduct = async (req, res) => {
 			await updateFeaturedProductsCache();
 			res.json(updatedProduct);
 		} else {
-			res.status(404).json({ message: "Product not found" });
+			res.status(404).json({ message: "Товар не найден" });
 		}
 	} catch (error) {
 		console.log("Error in toggleFeaturedProduct controller", error.message);
-		res.status(500).json({ message: "Server error", error: error.message });
+		res.status(500).json({ message: "Ошибка сервера", error: error.message });
 	}
 };
 

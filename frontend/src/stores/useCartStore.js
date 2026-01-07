@@ -22,15 +22,15 @@ export const useCartStore = create((set, get) => ({
 			const response = await axios.post("/coupons/validate", { code });
 			set({ coupon: response.data, isCouponApplied: true });
 			get().calculateTotals();
-			toast.success("Coupon applied successfully");
+			toast.success("Купон применён успешно");
 		} catch (error) {
-			toast.error(error.response?.data?.message || "Failed to apply coupon");
+			toast.error(error.response?.data?.message || "Не удалось применить купон");
 		}
 	},
 	removeCoupon: () => {
 		set({ coupon: null, isCouponApplied: false });
 		get().calculateTotals();
-		toast.success("Coupon removed");
+		toast.success("Купон удалён");
 	},
 
 	getCartItems: async () => {
@@ -40,7 +40,7 @@ export const useCartStore = create((set, get) => ({
 			get().calculateTotals();
 		} catch (error) {
 			set({ cart: [] });
-			toast.error(error.response.data.message || "An error occurred");
+			toast.error(error.response.data.message || "Произошла ошибка");
 		}
 	},
 	clearCart: async () => {
@@ -49,20 +49,20 @@ export const useCartStore = create((set, get) => ({
 	addToCart: async (product) => {
 		try {
 			await axios.post("/cart", { productId: product._id });
-			toast.success("Product added to cart");
+			toast.success("Товар добавлен в корзину");
 
 			set((prevState) => {
 				const existingItem = prevState.cart.find((item) => item._id === product._id);
 				const newCart = existingItem
 					? prevState.cart.map((item) =>
-							item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
-					  )
+						item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
+					)
 					: [...prevState.cart, { ...product, quantity: 1 }];
 				return { cart: newCart };
 			});
 			get().calculateTotals();
 		} catch (error) {
-			toast.error(error.response.data.message || "An error occurred");
+			toast.error(error.response.data.message || "Произошла ошибка");
 		}
 	},
 	removeFromCart: async (productId) => {

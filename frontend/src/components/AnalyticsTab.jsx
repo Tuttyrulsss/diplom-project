@@ -31,32 +31,32 @@ const AnalyticsTab = () => {
 	}, []);
 
 	if (isLoading) {
-		return <div>Loading...</div>;
+		return <div>Загрузка...</div>;
 	}
 
 	return (
 		<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 			<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8'>
 				<AnalyticsCard
-					title='Total Users'
+					title='Всего пользователей'
 					value={analyticsData.users.toLocaleString()}
 					icon={Users}
 					color='from-emerald-500 to-teal-700'
 				/>
 				<AnalyticsCard
-					title='Total Products'
+					title='Всего товаров'
 					value={analyticsData.products.toLocaleString()}
 					icon={Package}
 					color='from-emerald-500 to-green-700'
 				/>
 				<AnalyticsCard
-					title='Total Sales'
+					title='Всего продаж'
 					value={analyticsData.totalSales.toLocaleString()}
 					icon={ShoppingCart}
 					color='from-emerald-500 to-cyan-700'
 				/>
 				<AnalyticsCard
-					title='Total Revenue'
+					title='Общая выручка'
 					value={`$${analyticsData.totalRevenue.toLocaleString()}`}
 					icon={DollarSign}
 					color='from-emerald-500 to-lime-700'
@@ -82,7 +82,7 @@ const AnalyticsTab = () => {
 							dataKey='sales'
 							stroke='#10B981'
 							activeDot={{ r: 8 }}
-							name='Sales'
+							name='Продажи'
 						/>
 						<Line
 							yAxisId='right'
@@ -90,7 +90,7 @@ const AnalyticsTab = () => {
 							dataKey='revenue'
 							stroke='#3B82F6'
 							activeDot={{ r: 8 }}
-							name='Revenue'
+							name='Выручка'
 						/>
 					</LineChart>
 				</ResponsiveContainer>
